@@ -13,14 +13,14 @@ services:
       - key: PORT
         value: "5000"
       - key: DATABASE_URL
-        sync: false   # ← Set to your Render PostgreSQL External Database URL
+        sync: false
       - key: JWT_SECRET
         sync: false
       - key: GEMINI_API_KEY
         sync: false
 
   # ── Frontend Static React Service ────────────────────────────────────────────
-  - type: static
+  - type: web
     name: ai-interview-frontend
     env: static
     region: oregon
