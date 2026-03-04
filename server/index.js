@@ -10,7 +10,21 @@ const app = express();
 
 import authRoutes from './routes/authRoutes.js';
 import interviewRoutes from './routes/interviewRoutes.js';
-app.use(cors());
+// Allow both local dev and onrender.com production frontend
+const allowedOrigins = [
+    'http://localhost:5173',
+    /\.onrender\.com$/,
+];
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true); // allow non-browser requests like Postman
+        if (allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+            return callback(null, true);
+        }
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
