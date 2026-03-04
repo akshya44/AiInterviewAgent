@@ -7,7 +7,7 @@ export const verifyToken = async (req, res, next) => {
         try {
             const token = authHeader.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET || 'ai-interview-secret');
-            req.user = decoded;
+            req.user = { ...decoded, id: parseInt(decoded.id) }; // PostgreSQL uses integer IDs
             next();
         } catch (error) {
             console.error("Token verification failed:", error.message);

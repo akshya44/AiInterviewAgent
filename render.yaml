@@ -5,15 +5,15 @@ services:
     env: node
     region: oregon
     rootDir: server
-    buildCommand: "npm install"
+    buildCommand: "npm install && npx prisma generate"
     startCommand: "npm start"
     envVars:
       - key: NODE_VERSION
         value: "20"
       - key: PORT
         value: "5000"
-      - key: MONGODB_URI
-        sync: false   # ← Paste your MongoDB Atlas URI in the Render Dashboard
+      - key: DATABASE_URL
+        sync: false   # ← Set to your Render PostgreSQL External Database URL
       - key: JWT_SECRET
         sync: false
       - key: GEMINI_API_KEY

@@ -1,0 +1,51 @@
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  name       String
+  email      String      @unique
+  password   String
+  credits    Int         @default(5)
+  createdAt  DateTime    @default(now())
+  interviews Interview[]
+}
+
+model Interview {
+  id              Int        @id @default(autoincrement())
+  userId          Int
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobRole         String
+  jobDescription  String
+  resumeText      String
+  focusArea       String     @default("Core Concepts")
+  difficulty      String     @default("Intermediate")
+  interviewType   String     @default("Technical Only")
+  questionStyle   String     @default("Conceptual")
+  interviewMode   String     @default("Practice Mode")
+  companyType     String     @default("Product-Based")
+  status          String     @default("Pending")
+  totalScore      Int        @default(0)
+  createdAt       DateTime   @default(now())
+  questions       Question[]
+}
+
+model Question {
+  id           Int       @id @default(autoincrement())
+  interviewId  Int
+  interview    Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  questionText String
+  userAnswer   String    @default("")
+  aiFeedback   String    @default("")
+  score        Int       @default(0)
+  createdAt    DateTime  @default(now())
+}
