@@ -1,95 +1,155 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/Gemini_2.5_Flash-8A2BE2?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
-  <img src="https://img.shields.io/badge/React_18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
-  
-  <br />
-  
-  <h1>🚀 Next-Gen AI Interview Agent</h1>
-  <p>
-    <strong>A Premium, Audio-Interactive, AI-Powered Mock Interview Platform</strong>
-  </p>
+
+  <h1>🤖 AI Interview Agent</h1>
+  <p><strong>A full-stack, audio-interactive, AI-powered mock interview platform</strong></p>
+
+  <br/>
+
+  <img src="https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" />
+  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+
 </div>
 
-<hr/>
+---
 
 ## 🌟 Overview
-The **AI Interview Agent** is a full-stack MERN web application designed to simulate highly realistic, demanding technical and behavioral interviews. Powered by the incredibly fast **Google Gemini 2.5 Flash** model, it dynamically generates custom interview questions based on the candidate's PDF resume, their desired job role, and their precise interview settings. 
 
-What sets this platform apart is its **Interactive Audio Engine**: you can answer questions by speaking into your microphone, and the AI will narrate the questions aloud back to you, simulating a true real-time conversation!
+**AI Interview Agent** is a premium mock interview web application that uses **Google Gemini 2.5 Flash** to simulate real-world technical and HR interviews. Simply upload your resume PDF, configure your ideal interview settings, and the AI generates highly targeted questions based on your actual experience — then evaluates your answers with detailed, constructive AI feedback.
 
-## ✨ Premium Features
-* 📄 **Contextual PDF Parsing**: Upload your resume and the system will actively tailor its questions to the frameworks, bullet points, and experience listed in your PDF.
-* 🎙️ **Interactive Neural Audio Engine**: Features native Speech-to-Text (`Web Speech API`) allowing you to dictate your answers, alongside full AI Text-to-Speech dictation of every question! 
-* 🧠 **Advanced AI Prompting Rules**:
-    * Forces a behavioral "Tell me about yourself" opener to break the ice.
-    * Dynamically assesses candidates on Data Structures (DS/Algo) and Object-Oriented Programming (OOP) for technical roles.
-* 🎛️ **Granular Premium Settings**: Customize the Difficulty (e.g., FAANG-Level), Focus Area, Interview Type, and even trigger an **Auto-Submitting Countdown Timer**.
-* 📊 **Performance Dashboard**: Access your complete history of past interviews, grading scores out of 10, and intricate, constructive AI feedback on each of your answers.
-* 🎨 **Gorgeous UI/UX Architecture**: Crafted with Tailwind CSS, dark/light mode context, and fluid `framer-motion` animations, forming an elegant, intuitive interface.
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 📄 **PDF Resume Parsing** | Upload your resume and the AI tailors every question to your experience |
+| 🎛️ **Premium Settings Panel** | Choose Difficulty, Focus Area, Interview Type, Question Style, Company Type |
+| ⏱️ **Timed Mode** | Real countdown timer auto-submits your answer when time expires |
+| 🎙️ **Voice Input** | Speak your answers using the Web Speech API (Chrome) |
+| 🔊 **AI Voice Narration** | Questions are read aloud via Text-to-Speech automatically |
+| 📊 **Dashboard & History** | View all past interviews, scores, and completion status |
+| 💬 **AI Feedback Engine** | Each answer scored out of 10 with constructive Gemini feedback |
+| 🌙 **Dark / Light Mode** | Seamless theme toggle with full dark mode support |
+
+---
+
+## 🗂️ Project Structure
+
+```
+AiInterviewAgent/
+├── client/                   # React frontend (Vite + Tailwind)
+│   └── src/
+│       ├── pages/
+│       │   ├── Home.jsx
+│       │   ├── Login.jsx
+│       │   ├── Signup.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── SetupInterview.jsx
+│       │   ├── InterviewRoom.jsx
+│       │   └── Feedback.jsx
+│       ├── components/
+│       │   └── Navbar.jsx
+│       └── context/
+│           └── AuthContext.jsx
+│
+└── server/                   # Express backend
+    ├── controllers/
+    │   ├── authController.js
+    │   └── interviewController.js
+    ├── middlewares/
+    │   └── authMiddleware.js
+    ├── prisma/
+    │   ├── schema.prisma     # PostgreSQL schema (User, Interview, Question)
+    │   └── client.js
+    ├── routes/
+    │   ├── authRoutes.js
+    │   └── interviewRoutes.js
+    ├── utils/
+    │   └── gemini.js         # Google Gemini AI integration
+    └── index.js
+```
+
+---
 
 ## 🛠️ Tech Stack
-* **Frontend**: React.js, Tailwind CSS, Framer Motion, Axios, Lucide React (Icons)
-* **Backend**: Node.js, Express.js, MongoDB (Mongoose), JWT Authentication
-* **AI Engine**: Google Gemini API (`@google/genai`)
-* **Utilities**: `pdf-parse` (for PDF resumes), `multer`, Web Speech API
 
-## 🚀 Getting Started
+**Frontend:** React 18, Vite, Tailwind CSS, Framer Motion, Axios, Lucide React  
+**Backend:** Node.js, Express.js, JWT Authentication, Multer (PDF upload)  
+**Database:** PostgreSQL + Prisma ORM  
+**AI:** Google Gemini 2.5 Flash (`@google/genai`)  
+**PDF Parsing:** `pdf-parse`  
+**Audio:** Web Speech API (browser-native, no dependencies)
 
-### 1. Clone the Repository
+---
+
+## 🚀 Getting Started (Local)
+
+### 1. Clone the repo
 ```bash
 git clone https://github.com/akshya44/AiInterviewAgent.git
 cd AiInterviewAgent
 ```
 
-### 2. Set Up Environment Variables
-Create `.env` files in both `/client` and `/server` directories tracking the `.env.example` templates. 
+### 2. Set up environment variables
 
-**Backend (`server/.env`):**
+**`server/.env`:**
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+DATABASE_URL=postgresql://user:password@localhost:5432/aiinterview
 JWT_SECRET=your_jwt_secret
 GEMINI_API_KEY=your_google_gemini_api_key
 ```
 
-**Frontend (`client/.env`):**
+**`client/.env`:**
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-### 3. Install Dependencies
+### 3. Install & run backend
 ```bash
-# Install backend dependencies
 cd server
-npm install
-
-# Install frontend dependencies
-cd ../client
-npm install
+npm install            # also runs prisma generate automatically
+npx prisma migrate dev --name init   # creates PostgreSQL tables
+npm run dev
 ```
 
-### 4. Run the Dev Servers
-You can run both concurrently, or start them on separate terminals:
+### 4. Install & run frontend
 ```bash
-# Server terminal
-cd server
-npm run dev
-
-# Client terminal
 cd client
+npm install
 npm run dev
 ```
-Navigate to `http://localhost:5173` to experience the agent!
 
-## 💡 How it Works
-1. **Register/Login:** Create a secure account authenticated via JWT.
-2. **Setup:** Upload your PDF Resume and define the exact Job Role you're practicing for. Toggle the Premium settings to tune the difficulty and focus!
-3. **Interview Room:** The AI speaks the first question. Click the Mic icon to speak your answer, or type it directly. (If Timed Mode is active, watch the countdown!)
-4. **Debrief:** Once completed, the Dashboard calculates your final score and displays an itemized evaluation matrix generated by Gemini for every answer.
+Visit → `http://localhost:5173`
 
-<hr/>
+---
+
+## 🎯 How It Works
+
+1. **Sign Up / Login** — JWT-secured authentication
+2. **Setup Interview** — Enter job role, upload your PDF resume, and configure your 6 premium interview settings
+3. **Interview Room** — The AI narrates the question, you type or speak your answer. A countdown timer activates in Timed Mode
+4. **Feedback** — After completing all 5 questions, view your individual scores and AI-generated feedback for each answer
+
+---
+
+## ☁️ Deploying on Render
+
+1. **New → PostgreSQL** database on Render (Free tier)
+2. **New → Blueprint** → connect `akshya44/AiInterviewAgent` (uses `render.yaml`)
+3. Set env vars in the backend service: `DATABASE_URL`, `GEMINI_API_KEY`, `JWT_SECRET`
+4. After first deploy, run in the Render Shell:
+   ```bash
+   npx prisma migrate deploy --schema=prisma/schema.prisma
+   ```
+
+---
+
 <div align="center">
-  <i>Developed with ❤️ by Akshya.</i>
+  <sub>Built with ❤️ by <strong>Akshya</strong></sub>
 </div>
