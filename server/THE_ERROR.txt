@@ -1,0 +1,5 @@
+Error: API key must be set when using the Gemini API.
+    at new GoogleGenAI (file:///D:/AiInterviewAgent/server/node_modules/@google/genai/dist/node/index.mjs:20179:19)
+    at file:///D:/AiInterviewAgent/server/utils/gemini.js:5:12
+    at ModuleJob.run (node:internal/modules/esm/module_job:271:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:547:26)
