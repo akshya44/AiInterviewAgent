@@ -22,6 +22,30 @@ A complete, full-stack AI-powered interviewing platform that simulates realistic
 
 ---
 
+## 🚀 Live Demo
+
+Try the platform instantly without signup.
+**Demo Mode:** Click **Try Demo Interview** directly on the landing page!
+
+**Features:**
+- AI interview question generation
+- Real-time voice interaction & feedback
+- Seamless resume parsing
+
+---
+
+## 📸 Screenshots
+
+*(Add your actual screenshots to a `screenshots` folder and uncomment the links below!)*
+
+<!--
+![Landing Page](./screenshots/landing.png)
+![Interview Room](./screenshots/interview.png)
+![AI Feedback](./screenshots/feedback.png)
+-->
+
+---
+
 ## 🏗️ Architecture
 
 The app is built as a monolithic full-stack application configured for a "One-Place" deployment.

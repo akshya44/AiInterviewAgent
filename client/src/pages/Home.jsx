@@ -35,15 +35,26 @@ const Home = () => {
                     Upload your resume, get tailored technical and HR questions, practice in a simulated environment, and receive intelligent feedback to land your dream job.
                 </p>
 
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={handleStart}
-                    className="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-indigo-200 dark:shadow-indigo-900/40 hover:bg-indigo-700 dark:hover:bg-indigo-500 transition-colors"
-                >
-                    {currentUser ? 'Go to Dashboard' : 'Get Started for Free'}
-                    <Play className="w-5 h-5" />
-                </motion.button>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleStart}
+                        className="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-indigo-200 dark:shadow-indigo-900/40 hover:bg-indigo-700 dark:hover:bg-indigo-500 transition-colors"
+                    >
+                        {currentUser ? 'Go to Dashboard' : 'Get Started for Free'}
+                        <Play className="w-5 h-5" />
+                    </motion.button>
+
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => navigate('/demo-interview')}
+                        className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 border-2 border-indigo-100 dark:border-slate-700 px-8 py-4 rounded-xl font-bold text-lg shadow-sm hover:border-indigo-200 dark:hover:border-slate-600 transition-colors"
+                    >
+                        Try Demo Interview
+                    </motion.button>
+                </div>
             </motion.div>
 
             <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full px-4">
@@ -66,6 +77,15 @@ const Home = () => {
                         <p className="text-gray-600 dark:text-gray-300 transition-colors">{feature.desc}</p>
                     </motion.div>
                 ))}
+            </div>
+            <div className="mt-16 text-center max-w-4xl mx-auto w-full px-4 border-t border-gray-200 dark:border-slate-800 pt-16">
+                <div className="flex flex-wrap justify-center gap-3 md:gap-6">
+                    {['⚡ AI Interview Questions', '🎤 Voice Answer Support', '📄 Resume Parsing', '📊 Performance Feedback'].map((metric, i) => (
+                        <span key={i} className="px-5 py-3 bg-indigo-50 dark:bg-slate-800/80 text-indigo-700 dark:text-indigo-300 rounded-xl text-sm md:text-base font-semibold border border-indigo-100 dark:border-slate-700 shadow-sm flex items-center gap-2">
+                            {metric}
+                        </span>
+                    ))}
+                </div>
             </div>
         </div>
     );
