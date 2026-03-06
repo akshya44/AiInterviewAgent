@@ -8,6 +8,12 @@ const app = express();
 
 import authRoutes from './routes/authRoutes.js';
 import interviewRoutes from './routes/interviewRoutes.js';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+// Enable SQLite WAL mode globally for better concurrency
+prisma.$executeRawUnsafe('PRAGMA journal_mode=WAL;').catch(console.error);
 
 // Allow both local dev and Vercel/Render production frontend
 const allowedOrigins = [

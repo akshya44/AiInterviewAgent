@@ -36,5 +36,6 @@ client/.env
 /tmp/
 .gemini/
 
-# Database
-server/data/
+# Database directory, ignore contents but keep folder
+server/data/*
+!server/data/.gitkeep
