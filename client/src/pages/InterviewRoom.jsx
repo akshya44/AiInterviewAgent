@@ -18,6 +18,7 @@ const InterviewRoom = () => {
     const [recording, setRecording] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [feedback, setFeedback] = useState(null);
+    const [isSpeaking, setIsSpeaking] = useState(false);
     const [timeLeft, setTimeLeft] = useState(120);
     const [isAudioEnabled, setIsAudioEnabled] = useState(true);
     const [recognition, setRecognition] = useState(null);
@@ -79,6 +80,9 @@ const InterviewRoom = () => {
         if ('speechSynthesis' in window && isAudioEnabled) {
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
+            utterance.onstart = () => setIsSpeaking(true);
+            utterance.onend = () => setIsSpeaking(false);
+            utterance.onerror = () => setIsSpeaking(false);
             window.speechSynthesis.speak(utterance);
         }
     };
@@ -88,7 +92,12 @@ const InterviewRoom = () => {
         if (questions.length > 0 && questions[currentQuestionIndex]) {
             speakQuestion(questions[currentQuestionIndex].questionText);
         }
-        return () => window.speechSynthesis && window.speechSynthesis.cancel();
+        return () => {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+                setIsSpeaking(false);
+            }
+        };
     }, [currentQuestionIndex, questions, isAudioEnabled]);
 
     // Reset timer when a new question loads
@@ -286,8 +295,17 @@ const InterviewRoom = () => {
                         <div className="flex items-center gap-3 mb-6 relative z-10">
                             <motion.div
                                 initial={{ rotate: -180, opacity: 0 }}
-                                animate={{ rotate: 0, opacity: 1 }}
-                                className="w-12 h-12 bg-indigo-100 dark:bg-indigo-600/20 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0"
+                                animate={{
+                                    rotate: 0,
+                                    opacity: 1,
+                                    scale: isSpeaking ? [1, 1.1, 1] : 1,
+                                    boxShadow: isSpeaking ? ["0px 0px 0px rgba(79,70,229,0)", "0px 0px 20px rgba(79,70,229,0.5)", "0px 0px 0px rgba(79,70,229,0)"] : "none"
+                                }}
+                                transition={{
+                                    scale: { repeat: isSpeaking ? Infinity : 0, duration: 1.5 },
+                                    boxShadow: { repeat: isSpeaking ? Infinity : 0, duration: 1.5 }
+                                }}
+                                className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-all ${isSpeaking ? 'bg-indigo-600 text-white' : 'bg-indigo-100 dark:bg-indigo-600/20 text-indigo-600 dark:text-indigo-400'}`}
                             >
                                 <Bot className="w-6 h-6" />
                             </motion.div>
