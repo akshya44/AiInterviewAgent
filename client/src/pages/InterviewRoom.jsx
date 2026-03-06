@@ -17,6 +17,7 @@ const InterviewRoom = () => {
     const [loading, setLoading] = useState(true);
     const [recording, setRecording] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [feedback, setFeedback] = useState(null);
     const [timeLeft, setTimeLeft] = useState(120);
     const [isAudioEnabled, setIsAudioEnabled] = useState(true);
     const [recognition, setRecognition] = useState(null);
@@ -148,22 +149,33 @@ const InterviewRoom = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
 
-            setAnswer('');
             if (recording && recognition) {
                 recognition.stop();
                 setRecording(false);
             }
 
-            if (res.data.allAnswered) {
-                navigate(`/feedback/${id}`);
-            } else {
-                setCurrentQuestionIndex(prev => prev + 1);
-            }
+            // Immediately show the feedback instead of moving on
+            setFeedback({
+                score: res.data.question.score,
+                text: res.data.question.aiFeedback,
+                isFinal: res.data.allAnswered
+            });
+
         } catch (error) {
             console.error(error);
             alert("Error submitting answer.");
         } finally {
             setSubmitting(false);
+        }
+    };
+
+    const proceedToNext = () => {
+        if (feedback?.isFinal) {
+            navigate(`/feedback/${id}`);
+        } else {
+            setFeedback(null);
+            setAnswer('');
+            setCurrentQuestionIndex(prev => prev + 1);
         }
     };
 
@@ -309,26 +321,56 @@ const InterviewRoom = () => {
                         <textarea
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
+                            disabled={submitting || feedback !== null}
                             placeholder={recording ? "Speak now, transcribing..." : "Type your answer or click the mic button on your video to start speaking..."}
-                            className="flex-1 w-full bg-gray-50/50 dark:bg-slate-900/50 rounded-2xl p-4 border border-gray-200 dark:border-slate-600 focus:bg-white dark:focus:bg-slate-800/80 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-none text-base leading-relaxed h-40"
+                            className="flex-1 w-full bg-gray-50/50 dark:bg-slate-900/50 rounded-2xl p-4 border border-gray-200 dark:border-slate-600 focus:bg-white dark:focus:bg-slate-800/80 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all resize-none text-base leading-relaxed h-40 disabled:opacity-50"
                         />
 
-                        <div className="flex justify-end mt-4">
-                            <button
-                                onClick={handleNext}
-                                disabled={submitting || !answer.trim()}
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] disabled:opacity-75 flex items-center justify-center gap-2 min-w-[160px]"
+                        {feedback && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="mt-4 p-5 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 rounded-2xl"
                             >
-                                {submitting ? (
-                                    <motion.div
-                                        animate={{ opacity: [0.5, 1, 0.5] }}
-                                        transition={{ repeat: Infinity, duration: 1.5 }}
-                                        className="flex items-center gap-2"
-                                    >
-                                        <Loader2 className="w-5 h-5 animate-spin" /> AI is evaluating...
-                                    </motion.div>
-                                ) : currentQuestionIndex === questions.length - 1 ? 'Finish Interview' : 'Submit & Next'}
-                            </button>
+                                <div className="flex items-center gap-3 mb-2">
+                                    <div className="px-3 py-1 bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-400 font-bold rounded-lg shadow-sm border border-indigo-100 dark:border-indigo-800 text-sm">
+                                        Score: {feedback.score}/10
+                                    </div>
+                                    <h4 className="font-bold text-gray-900 dark:text-white">AI Real-Time Feedback</h4>
+                                </div>
+                                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
+                                    {feedback.text}
+                                </p>
+                            </motion.div>
+                        )}
+
+                        <div className="flex justify-end mt-4">
+                            {!feedback ? (
+                                <button
+                                    onClick={handleNext}
+                                    disabled={submitting || !answer.trim()}
+                                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] disabled:opacity-75 flex items-center justify-center gap-2 min-w-[160px]"
+                                >
+                                    {submitting ? (
+                                        <motion.div
+                                            animate={{ opacity: [0.5, 1, 0.5] }}
+                                            transition={{ repeat: Infinity, duration: 1.5 }}
+                                            className="flex items-center gap-2"
+                                        >
+                                            <Loader2 className="w-5 h-5 animate-spin" /> AI is evaluating...
+                                        </motion.div>
+                                    ) : 'Submit Answer'}
+                                </button>
+                            ) : (
+                                <motion.button
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    onClick={proceedToNext}
+                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-emerald-200 dark:shadow-none transition-all active:scale-[0.98] min-w-[160px]"
+                                >
+                                    {feedback.isFinal ? 'See Final Interview Report' : 'Next Question'}
+                                </motion.button>
+                            )}
                         </div>
                     </div>
                 </div>
