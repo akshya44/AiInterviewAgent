@@ -1,155 +1,90 @@
-<div align="center">
+# 🤖 AI Interview Agent
 
-  <h1>🤖 AI Interview Agent</h1>
-  <p><strong>A full-stack, audio-interactive, AI-powered mock interview platform</strong></p>
+A complete, full-stack AI-powered interviewing platform that simulates realistic technical and behavioral interviews. Upload your resume, turn on your webcam, and let the Google Gemini AI conduct a comprehensive, interactive 10-question interview tailored to your exact skills and desired job role.
 
-  <br/>
-
-  <img src="https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" />
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" />
-  <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
-  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-
-</div>
+![AI Interview Agent](https://img.shields.io/badge/Status-Production_Ready-success)
+![React](https://img.shields.io/badge/React-20232A?style=flat&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=flat&logo=Prisma&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-07405E?style=flat&logo=sqlite&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=flat&logo=google&logoColor=white)
 
 ---
 
-## 🌟 Overview
+## ✨ Key Features
 
-**AI Interview Agent** is a premium mock interview web application that uses **Google Gemini 2.5 Flash** to simulate real-world technical and HR interviews. Simply upload your resume PDF, configure your ideal interview settings, and the AI generates highly targeted questions based on your actual experience — then evaluates your answers with detailed, constructive AI feedback.
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---|---|
-| 📄 **PDF Resume Parsing** | Upload your resume and the AI tailors every question to your experience |
-| 🎛️ **Premium Settings Panel** | Choose Difficulty, Focus Area, Interview Type, Question Style, Company Type |
-| ⏱️ **Timed Mode** | Real countdown timer auto-submits your answer when time expires |
-| 🎙️ **Voice Input** | Speak your answers using the Web Speech API (Chrome) |
-| 🔊 **AI Voice Narration** | Questions are read aloud via Text-to-Speech automatically |
-| 📊 **Dashboard & History** | View all past interviews, scores, and completion status |
-| 💬 **AI Feedback Engine** | Each answer scored out of 10 with constructive Gemini feedback |
-| 🌙 **Dark / Light Mode** | Seamless theme toggle with full dark mode support |
+*   **🎥 Realistic Live Video Feed:** Native webcam integration for a high-pressure face-to-face interview simulation.
+*   **🗣️ Voice & Speech-to-Text:** The AI speaks its questions aloud using the Web Speech API, and you can answer using the integrated Speech-to-Text transcriber.
+*   **🧠 Gemini-Powered Brain:** Uses `gemini-2.5-flash` to analyze your uploaded resume PDF and generate 10 highly-tailored questions spanning Introductory, Behavioral, Technical, Scenario, and Wrap-up rounds.
+*   **📄 Robust PDF Extraction:** A custom, synchronous, zero-dependency PDF text extractor guarantees crash-free resume parsing.
+*   **💾 Zero-Config Local Database:** Uses `SQLite` and `Prisma` for frictionless local development and easy deployment.
+*   **🔒 Secure Authentication:** Custom JWT & bcrypt-based user authentication.
 
 ---
 
-## 🗂️ Project Structure
+## 🏗️ Architecture
 
-```
-AiInterviewAgent/
-├── client/                   # React frontend (Vite + Tailwind)
-│   └── src/
-│       ├── pages/
-│       │   ├── Home.jsx
-│       │   ├── Login.jsx
-│       │   ├── Signup.jsx
-│       │   ├── Dashboard.jsx
-│       │   ├── SetupInterview.jsx
-│       │   ├── InterviewRoom.jsx
-│       │   └── Feedback.jsx
-│       ├── components/
-│       │   └── Navbar.jsx
-│       └── context/
-│           └── AuthContext.jsx
-│
-└── server/                   # Express backend
-    ├── controllers/
-    │   ├── authController.js
-    │   └── interviewController.js
-    ├── middlewares/
-    │   └── authMiddleware.js
-    ├── prisma/
-    │   ├── schema.prisma     # PostgreSQL schema (User, Interview, Question)
-    │   └── client.js
-    ├── routes/
-    │   ├── authRoutes.js
-    │   └── interviewRoutes.js
-    ├── utils/
-    │   └── gemini.js         # Google Gemini AI integration
-    └── index.js
-```
+The app is built as a monolithic full-stack application configured for a "One-Place" deployment.
+*   **Frontend:** React (Vite), Tailwind CSS, Framer Motion, Lucide Icons.
+*   **Backend:** Node.js, Express.
+*   **Database:** SQLite (managed via Prisma ORM).
+*   **AI Engine:** Google GenAI SDK.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Getting Started (Local Development)
 
-**Frontend:** React 18, Vite, Tailwind CSS, Framer Motion, Axios, Lucide React  
-**Backend:** Node.js, Express.js, JWT Authentication, Multer (PDF upload)  
-**Database:** PostgreSQL + Prisma ORM  
-**AI:** Google Gemini 2.5 Flash (`@google/genai`)  
-**PDF Parsing:** `pdf-parse`  
-**Audio:** Web Speech API (browser-native, no dependencies)
+### Prerequisites
+*   Node.js (v18+)
+*   A Google Gemini API Key
 
----
-
-## 🚀 Getting Started (Local)
-
-### 1. Clone the repo
+### 1. Clone & Install
 ```bash
-git clone https://github.com/akshya44/AiInterviewAgent.git
+git clone https://github.com/your-username/AiInterviewAgent.git
 cd AiInterviewAgent
+
+# Install all dependencies (concurrently, server, and client)
+npm run install:all
 ```
 
-### 2. Set up environment variables
-
-**`server/.env`:**
+### 2. Environment Variables
+Create a `.env` file inside the `server/` directory:
 ```env
 PORT=5000
-DATABASE_URL=postgresql://user:password@localhost:5432/aiinterview
-JWT_SECRET=your_jwt_secret
-GEMINI_API_KEY=your_google_gemini_api_key
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="Your_Super_Secret_Key_Here"
+GEMINI_API_KEY="Your_Google_Gemini_Key_Here"
 ```
+*(No environment variables are needed in the `client` directory for local dev!)*
 
-**`client/.env`:**
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-### 3. Install & run backend
+### 3. Setup Database
 ```bash
 cd server
-npm install            # also runs prisma generate automatically
-npx prisma migrate dev --name init   # creates PostgreSQL tables
-npm run dev
+npx prisma db push
 ```
 
-### 4. Install & run frontend
+### 4. Run the App
+From the **root folder** (`AiInterviewAgent`), run:
 ```bash
-cd client
-npm install
 npm run dev
 ```
-
-Visit → `http://localhost:5173`
-
----
-
-## 🎯 How It Works
-
-1. **Sign Up / Login** — JWT-secured authentication
-2. **Setup Interview** — Enter job role, upload your PDF resume, and configure your 6 premium interview settings
-3. **Interview Room** — The AI narrates the question, you type or speak your answer. A countdown timer activates in Timed Mode
-4. **Feedback** — After completing all 5 questions, view your individual scores and AI-generated feedback for each answer
+Both the React Frontend (Port `5173`) and the Express Backend (Port `5000`) will boot up concurrently.
 
 ---
 
-## ☁️ Deploying on Render
+## 🌍 Deployment (Railway "One-Place" Setup)
 
-1. **New → PostgreSQL** database on Render (Free tier)
-2. **New → Blueprint** → connect `akshya44/AiInterviewAgent` (uses `render.yaml`)
-3. Set env vars in the backend service: `DATABASE_URL`, `GEMINI_API_KEY`, `JWT_SECRET`
-4. After first deploy, run in the Render Shell:
-   ```bash
-   npx prisma migrate deploy --schema=prisma/schema.prisma
-   ```
+This repository is strictly configured to compile the React frontend and serve it dynamically through the Node.js Express backend in production. This means you deploy the **entire app** as one single service on [Railway](https://railway.app/).
+
+1. **Push to GitHub:** Push this exact repository to your GitHub.
+2. **Deploy on Railway:** Create a "New Project" -> "Deploy from GitHub repo" and select this repo.
+3. **Important - Add a Volume:** Go to your new Railway Service -> **Settings -> Volumes**. Create a new Volume and set the Mount Path to `/app/server`. **(If you skip this, your SQLite user data will be deleted every time the server restarts!)**
+4. **Add Variables:** Go to the Variables tab and paste the same `.env` values (PORT, JWT_SECRET, GEMINI_API_KEY).
+5. **Generate Domain:** Go to the Networking tab and click "Generate Domain".
+
+Wait for the build to finish, and your full-stack app is live on a single URL!
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ by <strong>Akshya</strong></sub>
-</div>
+## 📜 License
+MIT License. Feel free to fork and improve!
