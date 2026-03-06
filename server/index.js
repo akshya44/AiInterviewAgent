@@ -27,19 +27,34 @@ app.use(cors({
 }));
 app.use(express.json());
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 app.use('/api/auth', authRoutes);
 app.use('/api/interview', interviewRoutes);
 
-app.get('/', (req, res) => {
-    res.send('AI Interview Agent API is running...');
-});
+// --- Production deployment config ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// For Vercel serverless — export app instead of calling listen
-const PORT = process.env.PORT || 5000;
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
+// Serve the static frontend files
+if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT) {
+    const clientDistPath = path.join(__dirname, '../client/dist');
+    app.use(express.static(clientDistPath));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(clientDistPath, 'index.html'));
+    });
+} else {
+    app.get('/', (req, res) => {
+        res.send('AI Interview Agent API is running in Development mode...');
     });
 }
+
+// Ensure the server always listens on a port in production
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 export default app;
