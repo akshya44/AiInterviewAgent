@@ -36,17 +36,51 @@ Try the platform instantly without signup.
 
 ## 📸 Screenshots
 
-*(Add your actual screenshots to a `screenshots` folder and uncomment the links below!)*
+### 1. Landing Page
+The beautifully designed, responsive entry point highlighting the platform's core performance metrics, call-to-actions, and a fast demo flow.
+![Landing Page](./mainpage.png)
 
-<!--
-![Landing Page](./screenshots/landing.png)
-![Interview Room](./screenshots/interview.png)
-![AI Feedback](./screenshots/feedback.png)
--->
+### 2. User Authentication
+A secure sign-up process featuring robust password-strength heuristic indicators to ensure enterprise-level security for your mock interview history.
+![Sign Up Page](./signuppage.png)
+
+### 3. Interview Configuration
+Upload your resume, enter the Target Job Role and Description, choose your difficulty, and let the AI generate hyper-personalized questions instantly.
+![Setup Interview](./jobinterviewcreationpage.png)
+
+### 4. Performance Dashboard
+A comprehensive dashboard featuring advanced Chart.js visualizations that chronologically track your Score Progression and dynamically analyze your Skill Distribution based on past interviews.
+![Performance Dashboard](./dashboard.png)
 
 ---
 
 ## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[User Visits Landing Page] --> B{Logged In?}
+    B -- No --> C[Sign Up / Login]
+    B -- Yes --> D[Dashboard & History]
+    
+    C --> D
+    D --> E[Create New Interview]
+    E --> F[Upload Resume PDF]
+    F --> G[Native PDF Parser]
+    G --> H[Google Gemini AI]
+    H -->|Generates Questions| I[Interview Room]
+    
+    I --> J[AI Interviwer Avatar Speaks]
+    J --> K[User Transcribes Answer via Mic]
+    K --> L[Submit to Backend]
+    
+    L --> M[Gemini AI Evaluates]
+    M --> N[Real-Time Feedback & Score]
+    N --> O{More Questions?}
+    O -- Yes --> J
+    O -- No --> P[Save to SQLite via Prisma]
+    P --> Q[Final Performance Report]
+    Q --> D
+```
 
 The app is built as a monolithic full-stack application configured for a "One-Place" deployment.
 *   **Frontend:** React (Vite), Tailwind CSS, Framer Motion, Lucide Icons.
