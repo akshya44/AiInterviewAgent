@@ -154,6 +154,10 @@ const InterviewRoom = () => {
                 setRecording(false);
             }
 
+            if (isAudioEnabled) {
+                speakQuestion(res.data.question.aiFeedback);
+            }
+
             // Immediately show the feedback instead of moving on
             setFeedback({
                 score: res.data.question.score,
