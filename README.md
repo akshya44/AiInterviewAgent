@@ -132,15 +132,15 @@ Both the React Frontend (Port `5173`) and the Express Backend (Port `5000`) will
 
 ---
 
-## 🌍 Deployment (Railway "One-Place" Setup)
+## 🌍 Deployment (Render "One-Place" Setup)
 
-This repository is strictly configured to compile the React frontend and serve it dynamically through the Node.js Express backend in production. This means you deploy the **entire app** as one single service on [Railway](https://railway.app/).
+This repository is strictly configured to compile the React frontend and serve it dynamically through the Node.js Express backend in production. The repository includes a `render.yaml` Blueprint to fully automate this deployment as a single Web Service on [Render](https://render.com/).
 
 1. **Push to GitHub:** Push this exact repository to your GitHub.
-2. **Deploy on Railway:** Create a "New Project" -> "Deploy from GitHub repo" and select this repo.
-3. **Important - Add a Volume:** Go to your new Railway Service -> **Settings -> Volumes**. Create a new Volume and set the Mount Path to `/app/server`. **(If you skip this, your SQLite user data will be deleted every time the server restarts!)**
-4. **Add Variables:** Go to the Variables tab and paste the same `.env` values (PORT, JWT_SECRET, GEMINI_API_KEY).
-5. **Generate Domain:** Go to the Networking tab and click "Generate Domain".
+2. **Deploy on Render:** Go to your Render Dashboard -> **New +** -> **Blueprint**.
+3. **Connect Repository:** Provide the link to this GitHub repository. Render will automatically read the `render.yaml` file and provision the entire Web Service for you.
+4. **Environment Variables:** Render will prompt you to enter the missing `GEMINI_API_KEY`. (It automatically provisions a random secure `JWT_SECRET`).
+5. **Database Syncing:** Render's free tier uses an ephemeral filesystem. The startup script natively runs `npx prisma db push` on every backend boot, guaranteeing your SQLite schema is instantly available every time the server spins up!
 
 Wait for the build to finish, and your full-stack app is live on a single URL!
 
