@@ -14,16 +14,15 @@ export const generateInterviewQuestions = async (jobRole, jobDescription, resume
     } = options;
 
     const prompt = `You are an expert ${interviewType} Interviewer. 
-Your goal is to generate exactly 5 highly specific and challenging interview questions for a candidate applying for the role of ${jobRole} at a ${companyType} company.
+Your goal is to conduct a highly realistic, full-length interview. You must generate exactly 10 interview questions for a candidate applying for the role of ${jobRole} at a ${companyType} company.
 
 **CRITICAL INSTRUCTIONS FOR QUESTION GENERATION:**
-1. **Question 1 MUST always be a foundational introductory question** (e.g., "Tell me about yourself and your experience with [Key Technology]...", or "Walk me through your background and projects...").
-2. The remaining 4 questions must be tailored to the exact difficulty level: **${difficulty}**, the focus area: **${focusArea}**, and the style: **${questionStyle}**.
-3. For Technical Roles, you MUST include questions covering:
-   - Data Structures and Algorithms (DS/Algo) appropriate for the role.
-   - Object-Oriented Programming (OOPs) concepts or system design.
-   - Specific programming language mechanics, syntax, or code output based on their resume.
-4. Ensure the questions are realistic, professional, and directly test what they claim to know.
+You MUST generate exactly 10 questions following this strict structure:
+1. **Question 1:** Foundational introductory question (e.g., "Tell me about yourself and your experience with...").
+2. **Questions 2 & 3:** Behavioral or Cultural Fit questions (e.g., Conflict resolution, teamwork, or describing a past challenge).
+3. **Questions 4, 5, 6, 7:** Hard Technical questions tailored to the exact difficulty level: **${difficulty}**, focus area: **${focusArea}**, and style: **${questionStyle}**. Base these on their resume skills.
+4. **Questions 8 & 9:** Scenario-based or Problem-solving questions (e.g., "How would you design X?" or "A production bug occurs in Y, what do you do?").
+5. **Question 10:** Wrap-up/Closing question (e.g., "Where do you see yourself in 3 years?" or a final overarching architectural question).
 
 Job Description:
 ${jobDescription}
@@ -31,7 +30,7 @@ ${jobDescription}
 Candidate Resume:
 ${resumeText}
 
-Return exactly 5 questions as a JSON array of strings.`;
+Return exactly 10 questions as a JSON array of strings.`;
 
     try {
         const response = await ai.models.generateContent({

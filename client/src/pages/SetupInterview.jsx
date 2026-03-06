@@ -50,11 +50,11 @@ const SetupInterview = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            navigate(`/interview/${res.data.interview._id}`);
-            // A small reload logic might be needed to update context credits but it's fine for MVP
+            navigate(`/interview/${res.data.interview.id}`);
         } catch (error) {
             console.error(error);
-            alert(error.response?.data?.message || 'Error occurred while evaluating PDF');
+            const msg = error.response?.data?.error || error.response?.data?.message || 'Error occurred';
+            alert('Failed: ' + msg);
         } finally {
             setLoading(false);
         }

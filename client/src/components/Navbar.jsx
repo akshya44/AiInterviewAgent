@@ -43,7 +43,9 @@ const Navbar = () => {
                                     Dashboard
                                 </Link>
                                 <div className="flex items-center gap-3 ml-4 border-l border-gray-200 dark:border-slate-700 pl-4">
-                                    <img referrerPolicy="no-referrer" src={currentUser.photoURL} alt="Profile" className="w-8 h-8 rounded-full border border-gray-200 dark:border-slate-700" />
+                                    <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-bold border border-indigo-400">
+                                        {currentUser?.name?.charAt(0)?.toUpperCase() || 'U'}
+                                    </div>
                                     <button onClick={logout} className="text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-500 p-1 transition-colors">
                                         <LogOut className="h-5 w-5" />
                                     </button>
