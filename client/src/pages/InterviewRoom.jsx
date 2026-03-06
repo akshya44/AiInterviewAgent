@@ -168,8 +168,15 @@ const InterviewRoom = () => {
     };
 
     if (loading) return (
-        <div className="min-h-[80vh] flex items-center justify-center">
+        <div className="min-h-[80vh] flex flex-col items-center justify-center gap-4">
             <Loader2 className="w-10 h-10 animate-spin text-indigo-600" />
+            <motion.p
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="text-lg font-medium text-indigo-600 dark:text-indigo-400"
+            >
+                Loading interview room...
+            </motion.p>
         </div>
     );
 
@@ -312,7 +319,15 @@ const InterviewRoom = () => {
                                 disabled={submitting || !answer.trim()}
                                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98] disabled:opacity-75 flex items-center justify-center gap-2 min-w-[160px]"
                             >
-                                {submitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Evaluating</> : currentQuestionIndex === questions.length - 1 ? 'Finish Interview' : 'Submit & Next'}
+                                {submitting ? (
+                                    <motion.div
+                                        animate={{ opacity: [0.5, 1, 0.5] }}
+                                        transition={{ repeat: Infinity, duration: 1.5 }}
+                                        className="flex items-center gap-2"
+                                    >
+                                        <Loader2 className="w-5 h-5 animate-spin" /> AI is evaluating...
+                                    </motion.div>
+                                ) : currentQuestionIndex === questions.length - 1 ? 'Finish Interview' : 'Submit & Next'}
                             </button>
                         </div>
                     </div>

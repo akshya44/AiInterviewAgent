@@ -212,7 +212,14 @@ const SetupInterview = () => {
                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg py-4 rounded-xl flex items-center justify-center gap-3 disabled:opacity-70 mt-8 transition-colors"
                     >
                         {loading ? (
-                            <><Loader2 className="w-6 h-6 animate-spin" /> Generating Questions...</>
+                            <motion.div
+                                animate={{ opacity: [0.5, 1, 0.5] }}
+                                transition={{ repeat: Infinity, duration: 1.5 }}
+                                className="flex items-center gap-3"
+                            >
+                                <Loader2 className="w-6 h-6 animate-spin" />
+                                AI is preparing your interview...
+                            </motion.div>
                         ) : (
                             'Generate Interview'
                         )}
