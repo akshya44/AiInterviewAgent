@@ -44,7 +44,7 @@ const SetupInterview = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/interview/create`, data, {
+            const res = await axios.post(`${import.meta.env.MODE === 'development' ? 'http://localhost:5000' : ''}/api/interview/create`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`

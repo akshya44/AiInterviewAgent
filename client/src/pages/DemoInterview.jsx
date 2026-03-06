@@ -13,7 +13,7 @@ export default function DemoInterview() {
         const fetchDemo = async () => {
             try {
                 // Ensure correct API URL fallback if proxy routing differs
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+                const apiUrl = import.meta.env.MODE === 'development' ? 'http://localhost:5000/api' : '/api';
                 const { data } = await axios.get(`${apiUrl}/interview/demo`);
                 setQuestions(data.questions);
             } catch (error) {

@@ -19,7 +19,7 @@ const Dashboard = () => {
         const fetchInterviews = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/interview`, {
+                const res = await axios.get(`${import.meta.env.MODE === 'development' ? 'http://localhost:5000' : ''}/api/interview`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setInterviews(res.data.interviews);
