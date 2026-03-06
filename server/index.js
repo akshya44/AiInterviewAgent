@@ -13,7 +13,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // Enable SQLite WAL mode globally for better concurrency
-prisma.$executeRawUnsafe('PRAGMA journal_mode=WAL;').catch(console.error);
+prisma.$queryRawUnsafe('PRAGMA journal_mode=WAL;').catch(console.error);
 
 // Allow both local dev and Vercel/Render production frontend
 const allowedOrigins = [
